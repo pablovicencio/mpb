@@ -12,6 +12,7 @@
     <title>Mapa de los precios bajos</title>
     <link rel="canonical" href="https://www.mapadelospreciosbajos.cl/" >
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -38,6 +39,67 @@
 
 
     <script type="text/javascript">
+
+    function agregar(id,prod) {
+              swal({
+              text: 'Ingresa la cantidad',
+              content: "input",
+              button: {
+                text: "Agregar "+prod,
+                closeModal: false,
+              },
+            })
+            .then(cant => {
+              if (!cant) throw null;
+              $.ajax({
+              type: "POST",
+              url: '../controles/controlAgregarProd.php',
+              data:{"id":id, "cant":cant},
+              success: function (result) { 
+              var msg = result.trim();
+
+                switch(msg) {
+                        case '0':
+                            swal("Error", "Verifique los datos de su evaluación", "warning");
+                            break;
+                        case '1':
+                            swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+                            break;
+                        case '2':
+                            swal("Error", "Ups, al parecer hay un problema con tu correo, por favor intentalo nuevamente", "warning");
+                            break;
+                        default:
+                            swal("Evaluación Ingresada", msg, "success",{
+                                  buttons: false,
+                                  timer: 3000,
+                                });
+                            setTimeout('document.location.reload(true)',3000);
+
+                    }
+
+
+
+              },
+              error: function(){
+                      alert('Verifique los datos')      
+              }
+            });
+
+
+
+             
+            })
+            .catch(err => {
+              if (err) {
+                swal("Oh no!", "El producto no se ha agregado", "error");
+              } else {
+                swal.stopLoading();
+                swal.close();
+              }
+            });
+      }
+
+
 
 
     function isMobile() {
@@ -67,12 +129,13 @@
               type: "POST",
               url: 'vista/vistaBuscar.php',
               data:$("#formbuscar").serialize(),
+              dataType:'json',
               success: function (result) { 
-              var myData = result.replace("[", "");
-              var myData = myData.replace("]", "");
-              console.log(myData);
+              //var myData = result.replace("[", "");
+              //var myData = myData.replace("]", "");
+              //console.log(result);
 
-              data(myData);
+              data(result);
 
               //Obtenemos la posición del usuario y lo manejamos con la función initialize
               if (navigator.geolocation) {
@@ -85,8 +148,8 @@
               }
 
               
-              document.getElementById("mainCont").style.display = "none";
-              document.getElementById("formbuscar").style.display = "none";
+              //document.getElementById("container").style.display = "none";
+              document.getElementById("formbuscar").style.visibility = "hidden";
               document.getElementById("map").style.display = "block";
 
               //document.getElementById("volver").style.display = "inline";
@@ -217,13 +280,7 @@
   <div id="loading" style="display: none;">
     <center><img src="img/load.gif"></center>
   </div>
-<div id="map" style="width: 100%; height: 50%; display:none">
-  <div id="map-canvas"></div>
-    <div id="markers">
-      <h1>Localicaciones</h1>
-        <ul></ul>
-    </div>
-</div>
+
 
 
 
@@ -268,10 +325,19 @@
 
             <h2 class="font-weight-light mb-0 bg-light border">Busca - Compara - Compra Inteligente</h2>
             </form>
+            <div id="map" style=" display:none">
+              <div id="map-canvas"></div>
+                <div id="markers">
+                  <h5>Proximidad</h5>
+                    <ul></ul>
+                </div>
+    </div>
             
       </div>
       <a href="index.php" class="btn btn-primary btn-lg" style="display: none" id="volver" name="volver">Volver</a><br>
+    
     </header>
+
 
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="categorias">

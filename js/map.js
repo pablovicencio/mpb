@@ -5,8 +5,8 @@ var myData;
 // '{"Madrid":{"Position":{"Longitude":40.405131,"Latitude":-3.724365}},"Barcelona":{"Position":{"Longitude":41.525030,"Latitude":2.449951}},"Bilbao":{"Position":{"Longitude":43.237199,"Latitude":-2.922363}},"A Coruña":{"Position":{"Longitude":43.357138,"Latitude":-8.415527}},"Granada":{"Position":{"Longitude":37.177826,"Latitude":-3.592529}},"Alicante":{"Position":{"Longitude":38.333039,"Latitude":-0.483398}},"Vigo":{"Position":{"Longitude":42.228517,"Latitude":-8.701172}},"Málaga":{"Position":{"Longitude":36.71246,"Latitude":-4.427490}},"Santander":{"Position":{"Longitude":43.460894,"Latitude":-3.812256}},"Badajoz":{"Position":{"Longitude":38.865375,"Latitude":-6.976318}}}';
 // var myData = JSON.parse(jsonString);
 function data(data) {
-  myData = JSON.parse(data);
-  console.log(myData);
+  myData = data;
+  //console.log(myData);
  }
 function error(msg) {
  alert("error" + msg);
@@ -23,7 +23,7 @@ function error(msg) {
 function initialize(position) {
 // Inicializamos las opciones del mapa
 var mapOptions = {
-zoom: 6,
+zoom: 14,
 // Establecemos la posición actual como centro
 center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
 // Este es el estilo proporcionado por Snazzy Maps.
@@ -144,18 +144,26 @@ mapOptions);
 var marker = new google.maps.Marker({
 position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
 map: map,
-title: "Usted está aquí."
+icon: {
+      url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+    },
+title: "Posición Actual"
 });
 var distanceObj = [],
 i = 0;
 // Calculamos la distancia entre los puntos
 $.each(myData, function(a, b) {
 	//console.log(position.coords.latitude);
-	//console.log(b);
+	console.log(a);
+		console.log(b);
 distanceObj[i] = {
-distance: coordsDistance(position.coords.latitude, position.coords.longitude, b.Position.Longitude, b.Position.Latitude),
-location: b,
-city: a
+distance: coordsDistance(position.coords.latitude, position.coords.longitude, b[0].Position.Longitude, b[0].Position.Latitude),
+location: b[0].Position,
+nombre: b[0].Nombre,
+precio: b[0].precio,
+tienda: b[0].tienda,
+img_prod: b[0].img_prod,
+id: b[0].id
 };
 ++i;
 });
@@ -165,22 +173,51 @@ return parseInt(a.distance) - parseInt(b.distance)
 });
 // Pintamos cada uno de los lugares
 $.each(distanceObj, function(a, b) {
-$('#markers ul').append('<li>' + b.city + ': ' + b.distance + 'KM </li>');
+	//console.log(b.Position.precio);
+$('#markers ul').append('<li>' + b.nombre + ': ' + b.distance + 'KM </li>');
 var marker = new google.maps.Marker({
-position: new google.maps.LatLng(b.location.Position.Longitude, b.location.Position.Latitude),
+position: new google.maps.LatLng(b.location.Longitude, b.location.Latitude),
 map: map,
+animation: google.maps.Animation.DROP,
+nombre: b.nombre,
+precio: b.precio,
+tienda: b.tienda,
+img_prod: b.img_prod,
+id: b.id
 });
-marker['infowindow'] = new google.maps.InfoWindow({
-content: b.city,
-maxWidth: 500,
-width: 500
-});
-google.maps.event.addListener(marker, 'mouseover', function() {
-marker['infowindow'].open(map, marker);
-});
-google.maps.event.addListener(marker, 'mouseout', function() {
-marker['infowindow'].close();
-});
+// marker['infowindow'] = new google.maps.InfoWindow({
+// content: b.nombre,
+// maxWidth: 500,
+// width: 500
+// });
+// google.maps.event.addListener(marker, 'click', function() {
+// marker['infowindow'].open(map, marker);
+// });
+
+
+    //limpiamos el contenido del globo de informacion
+    var infowindow = new google.maps.InfoWindow({
+        content: ''
+    });
+    //contenido de la infowindow
+    var content='<div id="content" style="width: auto; height: auto;">' + marker.nombre + '<hr/>Precio: $' +marker.precio+ '<br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
+
+        /*medoto para crear las infowindow independiente una de otra y 
+     * desplegarlas todas a la vez*/
+    google.maps.event.addListener(marker, 'click', function(marker, content, infowindow) {
+       return function(){
+          infowindow.setContent(content); //asignar el contenido al globo
+          infowindow.open(map, marker); //mostrarlo
+       };            
+    }(marker,content,infowindow));
+    infowindow.open(map, marker);
+
+        /*metodo para desplegar la infowindow cuando se haga clic en el marcador*/
+    google.maps.event.addListener(marker, 'click', function(marker, content, infowindow) {             
+      infowindow.setContent(content); //asignar el contenido al globo
+      infowindow.open(map, marker); //mostrarlo                      
+    }(marker, content, infowindow));
+
 });
 }
 // Función que calcula la distancia entre dos coordenadas devuelta en KM

@@ -70,11 +70,15 @@ $producto = stripcslashes ($_POST['producto']);
 
 
               foreach($re as $row){
-                $fila=array($row['nom_prod'] => array(
+                $fila=array( array("Nombre" => $row['nom_prod'],
+                                                      "id" => $row['id_prod'],
                                                       "Position" => array(
                                                       "Longitude" => floatval($row['longitud_tienda']),
                                                       "Latitude" => floatval($row['latitud_tienda'])
-                                                      )
+                                                      ),
+                                                      "precio" => $row['precio_uni_prod'],
+                                                      "tienda" => $row['nom_tienda'],
+                                                      "img_prod" => $row['img_prod']
                                                       ));
 
 
