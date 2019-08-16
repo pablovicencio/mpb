@@ -7,11 +7,7 @@ require_once '../clases/Funciones.php';
 $fun = new Funciones();    
 $comuna = stripcslashes ($_POST['comuna']);
 $producto = stripcslashes ($_POST['producto']);
-
-?>
-
-
-      <?php   
+   
               
               $re = $fun->cargar_cat($comuna, $producto, 0);
               //foreach($re as $row){

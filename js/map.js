@@ -154,8 +154,7 @@ i = 0;
 // Calculamos la distancia entre los puntos
 $.each(myData, function(a, b) {
 	//console.log(position.coords.latitude);
-	console.log(a);
-		console.log(b);
+
 distanceObj[i] = {
 distance: coordsDistance(position.coords.latitude, position.coords.longitude, b[0].Position.Longitude, b[0].Position.Latitude),
 location: b[0].Position,
@@ -200,7 +199,7 @@ id: b.id
         content: ''
     });
     //contenido de la infowindow
-    var content='<div id="content" style="width: auto; height: auto;">' + marker.nombre + '<hr/>Precio: $' +marker.precio+ '<br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
+    var content='<div id="content" style="width: auto; height: auto;">' + marker.nombre + '<hr/>Precio: $' +marker.precio+ '<br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
 
         /*medoto para crear las infowindow independiente una de otra y 
      * desplegarlas todas a la vez*/
@@ -222,7 +221,7 @@ id: b.id
 }
 // Función que calcula la distancia entre dos coordenadas devuelta en KM
 function coordsDistance(meineLongitude, meineLatitude, long1, lat1) {
-console.log(meineLongitude+ meineLatitude+ long1+ lat1);
+
 erdRadius = 6371;
 meineLongitude = meineLongitude * (Math.PI / 180);
 meineLatitude = meineLatitude * (Math.PI / 180);

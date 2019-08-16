@@ -4,24 +4,27 @@
 
 	try{
 
-		$anu = stripcslashes ($_POST['anu']);
+		$lista = $_POST['lista'];
 
-		 $fun = new Funciones();
-		 $re = $fun->Busca_lista_prod($anu);
-		 
+		//var_dump($lista);
 
+		  $fun = new Funciones();
 
-          $prod = array();
+		  $prod = array();
 
+		  foreach($lista as $fila){
 
-          foreach($re as $row){
+				  $re = $fun->busca_lista_prod($fila[0],$fila[1]);
+		          foreach($re as $row){
 
-                $prod[] = $row;
-    
-              }
-		ob_end_clean();
+		                array_push($prod,$row);
+		    
+		              }
+          }
+
+		 ob_end_clean();
 		
-		echo json_encode($prod);
+		 echo json_encode($prod);
 	
 	} catch (Exception $e) {
 		//echo($e);

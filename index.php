@@ -34,183 +34,13 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDLYOM6tQISHF4gQOpUNGhTk98Ob-2-OBg"></script>
     <script src="js/map.js"></script>
+    <script src="js/main_cli.js"></script>
+    <script type="application/javascript" src="js/cookie.js"></script>
 
 
 
 
-    <script type="text/javascript">
 
-    function agregar(id,prod) {
-              swal({
-              text: 'Ingresa la cantidad',
-              content: "input",
-              button: {
-                text: "Agregar "+prod,
-                closeModal: false,
-              },
-            })
-            .then(cant => {
-              if (!cant) throw null;
-              $.ajax({
-              type: "POST",
-              url: '../controles/controlAgregarProd.php',
-              data:{"id":id, "cant":cant},
-              success: function (result) { 
-              var msg = result.trim();
-
-                switch(msg) {
-                        case '0':
-                            swal("Error", "Verifique los datos de su evaluación", "warning");
-                            break;
-                        case '1':
-                            swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
-                            break;
-                        case '2':
-                            swal("Error", "Ups, al parecer hay un problema con tu correo, por favor intentalo nuevamente", "warning");
-                            break;
-                        default:
-                            swal("Evaluación Ingresada", msg, "success",{
-                                  buttons: false,
-                                  timer: 3000,
-                                });
-                            setTimeout('document.location.reload(true)',3000);
-
-                    }
-
-
-
-              },
-              error: function(){
-                      alert('Verifique los datos')      
-              }
-            });
-
-
-
-             
-            })
-            .catch(err => {
-              if (err) {
-                swal("Oh no!", "El producto no se ha agregado", "error");
-              } else {
-                swal.stopLoading();
-                swal.close();
-              }
-            });
-      }
-
-
-
-
-    function isMobile() {
-          try{ 
-              document.createEvent("TouchEvent"); 
-              document.getElementById("menuMob").style.display = "block";
-              document.getElementById("menuMobFoo").style.display = "block";
-
-          }
-          catch(e){ 
-              document.getElementById("menuDesk").style.display = "block";
-          }
-      }
-
-
-        $(document).ajaxStart(function() {
-          $("#formbuscar").hide();
-          $("#loading").show();
-             }).ajaxStop(function() {
-          $("#loading").hide();
-          $("#formbuscar").show();
-          });  
-
-  $(document).ready(function() {
-          $("#formbuscar").submit(function() {    
-            $.ajax({
-              type: "POST",
-              url: 'vista/vistaBuscar.php',
-              data:$("#formbuscar").serialize(),
-              dataType:'json',
-              success: function (result) { 
-              //var myData = result.replace("[", "");
-              //var myData = myData.replace("]", "");
-              //console.log(result);
-
-              data(result);
-
-              //Obtenemos la posición del usuario y lo manejamos con la función initialize
-              if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(initialize, error, {
-              maximumAge: 60000,
-              timeout: 4000
-              });
-              } else {
-              error('Actualiza el navegador web para usar el API de localización');
-              }
-
-              
-              //document.getElementById("container").style.display = "none";
-              document.getElementById("formbuscar").style.visibility = "hidden";
-              document.getElementById("map").style.display = "block";
-
-              //document.getElementById("volver").style.display = "inline";
-              //window.scroll(0, 0);
-                
-              },
-              error: function(){
-                      alert('Verifique los datos')      
-              }
-            });
-            return false;
-          });
-        });    
-
-
-
-
-     function modal(id) {
-    
-    document.getElementById("portafolio_titulo").innerHTML = "";
-    document.getElementById("portafolio").innerHTML = "";
-     $.ajax({
-      url: 'controles/controlPortafolio.php',
-      type: 'POST',
-      data: {"id":id},
-      success:function(result){
-         
-              document.getElementById("portafolio").innerHTML = result;
-               switch(id){
-                          case 1:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria1";
-                          break;
-                          case 2:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria2";
-                          break;
-                          case 3:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria3";
-                          break;
-                          case 4:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria4";
-                          break;
-                          case 5:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria5";
-                          break;
-                          case 6:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria6";
-                          break;
-                          window.scroll(0, 0);
-
-
-               }
-                
-              },
-              error: function(){
-                      alert('Verifique los datos')      
-              }
-  })
-    
-
-}
-    </script>
 
   </head>
 
@@ -262,6 +92,10 @@
 </div>
 <div class="sticky-container">
     <ul class="sticky">
+      <li>
+            <img src="img/rrss/shopping-cart.png" width="32" height="32">
+            <p><a href="#modalProd" class="portfolio-item" onclick="modalListaProd();">Carro <br><span id="prod_carro"></span></a></p>
+        </li>
        <li>
             <img src="img/rrss/instagram-circle.png" width="32" height="32">
             <p><a href="https://www.instagram.com/" target="_blank">Siguenos en <br>Instagram</a></p>
@@ -289,6 +123,14 @@
 
     <!-- Header -->
     <header class="masthead bg-primary text-black text-center" id="mainCont">
+      <div id="map" style=" display:none">
+              <div id="map-canvas"></div>
+                <div id="markers">
+                  <h5>Proximidad</h5>
+                    <ul id="lista_prox"></ul>
+                </div>
+
+    </div>
       <div class="container" id="container">
         <form id="formbuscar" onsubmit="return false;"  >
         
@@ -325,21 +167,19 @@
 
             <h2 class="font-weight-light mb-0 bg-light border">Busca - Compara - Compra Inteligente</h2>
             </form>
-            <div id="map" style=" display:none">
-              <div id="map-canvas"></div>
-                <div id="markers">
-                  <h5>Proximidad</h5>
-                    <ul></ul>
-                </div>
-    </div>
+            
             
       </div>
-      <a href="index.php" class="btn btn-primary btn-lg" style="display: none" id="volver" name="volver">Volver</a><br>
+
+     
     
     </header>
+      <center>
+        <br><button class="btn btn-primary btn-lg" style="display: none" id="volver" name="volver" onclick="volver()">Volver a buscar</button><br><br>
+      </center>
 
 
-    <!-- Portfolio Grid Section -->
+    <!-- Portfolio Grid Section 
     <section class="portfolio" id="categorias">
       <div class="container">
         <h2 class="text-center text-uppercase text-secondary mb-0">Categorías</h2>
@@ -413,7 +253,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section>-->
 
     <!-- About Section -->
     <section class="bg-primary text-white mb-0" id="conocenos">
@@ -557,26 +397,40 @@
 
 
 
-    <!-- Portfolio Modals -->
+    
 
-    <!-- Portfolio Modal 1 -->
-    <div class="portfolio-modal mfp-hide" id="portafolio-modal">
-      <div class="portfolio-modal-dialog bg-white">
-        <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-          <i class="fa fa-3x fa-times"></i>
-        </a>
-        <div class="container text-center">
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <h2 class="text-secondary text-uppercase mb-0" id="portafolio_titulo" name="portafolio_titulo"></h2>
-              <hr class="star-dark mb-5">
-              <div id="portafolio" name="portafolio"></div>
-              <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">Volver</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- listado Modal 1 -->
+                  <div class="portfolio-modal mfp-hide" id="modalProd">
+                          <div class="portfolio-modal-dialog bg-white">
+                            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                              <i class="fa fa-3x fa-times"></i>
+                            </a>
+                            <div class="container text-center">
+                              <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                  <h3 class="text-secondary text-uppercase mb-0">Lista de Compras</h3>
+                                  <div id="listado" name="listado">
+                                    <table class="table table-responsive table-sm table-striped " id="tabla_prod" name="tabla_prod">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">Tienda</th>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio Total</th>
+                                            <th scope="col"><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="tbody_modalprod">
+                                        </tbody>
+                                    </table>
+                                  </div>
+                                  <a class="btn btn-success btn-lg rounded-pill portfolio-modal-dismiss" onclick="ubicar()"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">Volver</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
 
 

@@ -5,10 +5,44 @@ class Funciones
 {
 
 
+
+    /*///////////////////////////////////////
+    Ubicar Lista
+    //////////////////////////////////////*/
+        public function ubicar_lista_prod($id){
+
+            try{
+                
+                
+                $pdo = AccesoDB::getCon();
+
+                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda
+                        from producto a inner join tienda b on a.tienda_prod = b.id_tienda
+                        where a.vig_prod = 1 and b.vig_tienda = 1 and a.id_prod = :id";
+
+                                
+                            
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $response = $stmt->fetchAll();
+                return $response;
+
+            } catch (Exception $e) {
+                echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); </script>";
+            }
+        }
+
+
+
+
+
      /*///////////////////////////////////////
     Buscar Lista de productos
     //////////////////////////////////////*/
-        public function busca_lista_prod($id){
+        public function busca_lista_prod($id, $cant){
 
             try{
                 
@@ -17,9 +51,10 @@ class Funciones
 
                
 
-                    $sql = "select nombre_prod, desc_prod, precio_prod 
-                            from lista_productos
-                            where vig_prod = 1 and fk_anuncio = :id order by 2";
+                    $sql = "select a.id_prod, b.nom_tienda, a.nom_prod, :cant cant, (:cant * a.precio_uni_prod) precio
+                            from producto a inner join tienda b 
+                            on a.tienda_prod = b.id_tienda
+                            where a.id_prod = :id";
 
                 
                                 
@@ -27,6 +62,7 @@ class Funciones
 
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->bindParam(":cant", $cant, PDO::PARAM_INT);
                 $stmt->execute();
 
                 $response = $stmt->fetchAll();
