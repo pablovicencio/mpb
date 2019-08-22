@@ -7,6 +7,33 @@ class Funciones
 
 
     /*///////////////////////////////////////
+    Datos mi cuenta usuario
+    //////////////////////////////////////*/
+        public function cargar_datos_usu($id){
+
+            try{
+                
+                
+                $pdo = AccesoDB::getCon();
+
+                    $sql = "select id_usu, nom_usu, mail_usu
+                        from usuario
+                        where  id_usu = :id";
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $response = $stmt->fetchAll();
+                return $response;
+
+            } catch (Exception $e) {
+                echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); </script>";
+            }
+        }
+
+
+    /*///////////////////////////////////////
     Ubicar Lista
     //////////////////////////////////////*/
         public function ubicar_lista_prod($id){
