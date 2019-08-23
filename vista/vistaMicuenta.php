@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
+if( isset($_SESSION['id']) ){
     //Si la sesión esta seteada no hace nada
     $id = $_SESSION['id'];
   }
@@ -28,28 +28,29 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Plugin CSS -->
-    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="css/freelancer.min.css" rel="stylesheet">
-    <link href="css/rrss.css" rel="stylesheet">
+    <link href="../css/freelancer.min.css" rel="stylesheet">
+    <link href="../css/rrss.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDLYOM6tQISHF4gQOpUNGhTk98Ob-2-OBg"></script>
-    <script src="js/map.js"></script>
-    <script src="js/cuenta_cli.js"></script>
-    <script type="application/javascript" src="js/cookie.js"></script>
+    <script src="../js/map.js"></script>
+    <script src="../js/cuenta_cli.js"></script>
+    <script type="application/javascript" src="../js/cookie.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
@@ -64,7 +65,7 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
       <div class="container">
         <!--<img src="" width="30" height="30" class="d-inline-block align-top" alt="">-->
-        <a class="navbar-brand js-scroll-trigger" href="index.php">Mapa de los precios bajos</a>
+        <a class="navbar-brand js-scroll-trigger" href="../index.php">Mapa de los precios bajos</a>
       </div>
     </nav>
 </div>
@@ -72,15 +73,15 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
 <div id="menuDesk" name="menuDesk" style="display: none;">
   <nav class="navbar navbar-expand-sm bg-secondary fixed-top text-uppercase" id="mainNav">
     <a class="navbar-brand js-scroll-trigger" href="index.php" id="link-home" name="link-home">
-    <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <img src="../img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Mapa de los precios bajos
   </a>
           <ul class="navbar-nav ml-auto" >
             <li class="nav-item mx-0 mx-lg-1">
-                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php" id="link-home-mob" name="link-home-mob"><i class="fa fa-home" aria-hidden="true"></i></a>
+                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php" id="link-home-mob" name="link-home-mob"><i class="fa fa-home" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#categorias" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#categorias" id="link-com" name="link-com"> Mi Cuenta</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-com" name="link-com"> Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con" name="link-con">Nosotros</a>
@@ -88,15 +89,6 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu" name="link-anu">Contactanos</a>
             </li>
-            <!--                           <?php 
-                                        $re1 = $fun->busca_promo(0);   
-                                         if (!empty($re1)) {
-                                           echo '<li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo-mob" name="link-promo-mob"><i class="fa fa-bell" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo" name="link-promo">Promos!</a>
-            </li>';
-                                          }
-                                        ?>       
- -->
 
 
                 
@@ -107,32 +99,38 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
 <div class="sticky-container">
     <ul class="sticky">
       <li>
-            <img src="img/rrss/shopping-cart.png" width="32" height="32">
+            <img src="../img/rrss/shopping-cart.png" width="32" height="32">
             <p><a href="#modalProd" class="portfolio-item" onclick="modalListaProd();">Carro <br><span id="prod_carro"></span></a></p>
         </li>
        <li>
-            <img src="img/rrss/instagram-circle.png" width="32" height="32">
+            <img src="../img/rrss/instagram-circle.png" width="32" height="32">
             <p><a href="https://www.instagram.com/" target="_blank">Siguenos en <br>Instagram</a></p>
         </li>
         <li>
-            <img src="img/rrss/facebook-circle.png" width="32" height="32">
+            <img src="../img/rrss/facebook-circle.png" width="32" height="32">
             <p><a href="https://www.facebook.com/" target="_blank">Siguenos en <br>Facebook</a></p>
         </li>
         <li>
-            <img src="img/rrss/whatsapp-circle.png" width="32" height="32">
+            <img src="../img/rrss/whatsapp-circle.png" width="32" height="32">
             <p><a href="https://api.whatsapp.com/send?phone=56996643838" target="_blank">Contactanos en <br>WhatsAPP</a></p>
         </li>
     </ul>
 </div>
 
 
-<div class="container" id="main">
-  <div class="row">
-    <div class="col-12">
-      <h3>Mis Datos<i class="fa fa-address-card" aria-hidden="true"></i></h3>
+<header class="masthead text-black" id="mainCont">
+      <div id="map" style=" display:none; height: 100px;">
+              <div id="map-canvas"></div>
+                <div id="markers">
+                  <h5>Proximidad</h5>
+                    <ul id="lista_prox"></ul>
+                </div>
+
     </div>
+  <div class="miCuenta" id="micuenta" name="micuenta">
+  <div class="row">
     <div id="loading" style="display: none;">
-    <center><img src="../recursos/img/load.gif"></center>
+    <center><img src="../img/load.gif"></center>
     </div>
   </div>
       <?php
@@ -140,28 +138,63 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
       foreach($re as $row)      
           {
           }    
-      ?>  
+      ?> 
+  <div class="col-12">
+      <br>
+      <br>
+      <h3>Mis Datos<i class="fa fa-address-card" aria-hidden="true"></i></h3>
+    </div> 
   <hr>
   <div class="row" id="upd">
       <div class="col-12">
         <div class="form-group">
           <label for="nom">Nombre:</label>
-          <input type="text" class="form-control" id="nom_usu" name="nom_usu"  value="<?php echo $row['nom'] ?>" required>
+          <input type="text" class="form-control" id="nom_usu" name="nom_usu"  value="<?php echo $row['nom_usu'] ?>" required>
+          <br>
           <button type="button" class="btn btn-info"  id="btn-upd" name="btn-upd" style="display: none"><i class="fa fa-floppy-o"></i></button> 
         </div>
         <div class="form-group">
           <label for="mail">Mail:</label>
-          <input type="text" class="form-control" id="mail_usu" name="mail_usu" value="<?php echo $row['mail'] ?>" readonly required>
+          <input type="text" class="form-control" id="mail_usu" name="mail_usu" value="<?php echo $row['mail_usu'] ?>" readonly required>
         </div>
        
       </div>
               
       <div class="col-12 text-center">
       <br>
-      <button type="button" href="#modalPass" class="portfolio-item" id="btn-pwd" name="btn-pwd">Actualizar Contraseña</button> 
+      <button type="button" href="#modalPass" class="portfolio-item btn btn-warning" id="btn-pwd" name="btn-pwd">Actualizar Contraseña</button> 
       </div>
     </div>
+    <br>
+
+    <table class="table table-responsive table-sm table-striped " id="tabla_lists" name="tabla_lists">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">Lista</th>
+                                            <th scope="col">Cant Productos</th>
+                                            <th scope="col">Fecha Creacion</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="tbody_lists">
+                                        <?php
+                                                    $re = $fun->cargar_list_usu($id);
+                                                    foreach($re as $row){
+                                                      echo ('<tr><td><a href="#modalProd"  id="id_lista" name="id_lista" onclick="lista_guardada('.$row["id_lista"].')" class="btn btn-warning portfolio-item" >'.$row["nom_lista"].'</a></td>');
+                                                      echo ('<td>'.$row['cant'].'</td>');
+                                                      echo ('<td>'.date('d-m-Y', strtotime($row['fec_cre_lista'])).'</td></tr>');
+                                       
+                                                    }
+                                      ?> 
+                                        </tbody>
+                                    </table>
+
+
+      
+
+
   </div>
+</header>
+
 
 
 
@@ -175,7 +208,7 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
     
           <ul class="navbar-nav m-auto " >
             <li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#categorias" id="link-con-mob" name="link-con-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/micuenta.php" id="link-con" name="link-con">Mi Cuenta</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-con-mob" name="link-con-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-con" name="link-con">Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-0">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con" name="link-con">Nosotros</a>
@@ -183,16 +216,6 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
             <li class="nav-item mx-0 mx-0">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu" name="link-anu">Anunciate!</a>
             </li>
-            <!--                           <?php 
-                                        $re1 = $fun->busca_promo(0);   
-                                         if (!empty($re1)) {
-                                           echo '<li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo-mob" name="link-promo-mob"><i class="fa fa-bell" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo" name="link-promo">Promos!</a>
-            </li>';
-                                          }
-                                        ?>     -->   
-
-
 
                 
           </ul>
@@ -245,7 +268,8 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
                                             <input type="password" class="form-control" id="newpwd2" placeholder="Nueva contraseña" maxlength="6" name="newpwd2">
                                             </div>
                                           </div>
-                                            <center><input type="submit" class="btn btn-info" id="btnAc" name="btnAc" value="Actualizar"></center> 
+                                            <center><input type="submit" class="btn btn-info" id="btnAc" name="btnAc" value="Actualizar">
+                                            <a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a></center> 
                                             <br>
                                           </form>
                                       </div>
@@ -257,20 +281,56 @@ if( isset($_SESSION['id']) and ($_SESSION['perfil'] == 1) ){
 
 
 
+
+                  <!-- listado Modal 1 -->
+                  <div class="portfolio-modal mfp-hide" id="modalProd">
+                          <div class="portfolio-modal-dialog bg-white">
+                            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                              <i class="fa fa-3x fa-times"></i>
+                            </a>
+                            <div class="container text-center">
+                              <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                  <h3 class="text-secondary text-uppercase mb-0">Lista de Compras</h3>
+                                  <div id="listado" name="listado">
+                                    <table class="table table-responsive table-sm table-striped " id="tabla_prod" name="tabla_prod">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">Tienda</th>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio Total</th>
+                                            <th scope="col"><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="tbody_modalprod">
+                                        </tbody>
+                                    </table>
+                                  </div>
+                                  <a class="btn btn-success portfolio-modal-dismiss" onclick="ubicar(2)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                  <a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+    <script src="../js/jqBootstrapValidation.js"></script>
+    <script src="../js/contact_me.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="js/freelancer.min.js"></script>
+    <script src="../js/freelancer.min.js"></script>
 
   </body>
 

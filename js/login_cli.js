@@ -7,7 +7,7 @@ $(document).ajaxStart(function() {
   $("#login").show();
   }); 
 
-//upd nom
+//login
 $(document).ready(function() {
   $("#formLogin").submit(function() {  
 
@@ -18,7 +18,7 @@ $(document).ready(function() {
 		  
   	 $.ajax({
       type: "POST",
-      url: 'controles/controlLogin.php',
+      url: '../controles/controlLogin.php',
       data:{"mail":mail, "pwd":pwd},
       success: function (result) { 
               var msg = result.trim();
@@ -26,10 +26,10 @@ $(document).ready(function() {
                 switch(msg) {
                         case '0':
                             //REVISAR ESTA RUTA CUANDO PASE A PRODUCCION
-                            var dominio = window.location.hostname;
-                            var carpeta = window.location.pathname;
+                            //var dominio = window.location.hostname;
+                            //var carpeta = window.location.pathname;
                             //console.log(dominio+carpeta+"pag_usu/inicio.php");
-                            window.location= carpeta+"pag_usu/inicio.php";
+                            window.location= "../vista/vistaMicuenta.php";
                             break;
                         case '-1':
                             swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
@@ -40,6 +40,41 @@ $(document).ready(function() {
                         
 
                     }
+      },
+      error: function(){
+              swal("Error", "favor verifique sus datos e intente nuevamente o comuniquese con su Administrador de Sistema", "warning");      
+              
+      }
+    });
+    return false;
+  });
+});
+
+
+
+//crear usuario
+$(document).ready(function() {
+  $("#formCreUsu").submit(function() {  
+     $.ajax({
+      type: "POST",
+      url: '../controles/controlCrearUsu.php',
+      data:$("#formCreUsu").serialize(),
+      success: function (result) { 
+              var msg = result.trim();
+
+               switch(msg) {
+            case '-1':
+                swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+                break;
+            case '-2':
+                swal("Error Mail", "Favor ingrese un correo electronico para enviar las credenciales", "warning");
+                break;
+            case '-3':
+                swal("Mail Duplicado", "El Mail ya se encuentra en el sistema, puede encontrarse sin vigencia", "warning");
+                break;
+            default:
+                swal("Usuario Creado!", msg, "success");
+              }
       },
       error: function(){
               swal("Error", "favor verifique sus datos e intente nuevamente o comuniquese con su Administrador de Sistema", "warning");      

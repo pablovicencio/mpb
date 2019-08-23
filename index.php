@@ -1,4 +1,12 @@
 <?php 
+session_start(); 
+if( isset($_SESSION['id']) ){
+    //Si la sesión esta seteada no hace nada
+    $id = $_SESSION['id'];
+  }
+  else{
+    $id = 0;
+  }   
    require_once 'clases/Funciones.php';
   $fun = new Funciones();    
 ?>
@@ -36,6 +44,8 @@
     <script src="js/map.js"></script>
     <script src="js/main_cli.js"></script>
     <script type="application/javascript" src="js/cookie.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 
 
@@ -66,7 +76,7 @@
                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php" id="link-home-mob" name="link-home-mob"><i class="fa fa-home" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#categorias" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-com" name="link-com"> Mi Cuenta</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-com" name="link-com"> Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con" name="link-con">Nosotros</a>
@@ -74,15 +84,6 @@
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu" name="link-anu">Contactanos</a>
             </li>
-            <!--                           <?php 
-                                        $re1 = $fun->busca_promo(0);   
-                                         if (!empty($re1)) {
-                                           echo '<li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo-mob" name="link-promo-mob"><i class="fa fa-bell" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo" name="link-promo">Promos!</a>
-            </li>';
-                                          }
-                                        ?>       
- -->
 
 
                 
@@ -362,7 +363,7 @@
     
           <ul class="navbar-nav m-auto " >
             <li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#categorias" id="link-con-mob" name="link-con-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-con" name="link-con">Mi Cuenta</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-con-mob" name="link-con-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-con" name="link-con">Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-0">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con" name="link-con">Nosotros</a>
@@ -370,18 +371,6 @@
             <li class="nav-item mx-0 mx-0">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu" name="link-anu">Anunciate!</a>
             </li>
-            <!--                           <?php 
-                                        $re1 = $fun->busca_promo(0);   
-                                         if (!empty($re1)) {
-                                           echo '<li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo-mob" name="link-promo-mob"><i class="fa fa-bell" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaPromociones.php?id=1" id="link-promo" name="link-promo">Promos!</a>
-            </li>';
-                                          }
-                                        ?>     -->   
-
-
-
-                
           </ul>
 
   </nav>
@@ -424,8 +413,13 @@
                                         </tbody>
                                     </table>
                                   </div>
-                                  <a class="btn btn-success btn-lg rounded-pill portfolio-modal-dismiss" onclick="ubicar()"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                                  <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">Volver</a>
+                                  <?php
+                                  if ($id > 0) {
+                                    echo '<a class="btn btn-warning portfolio-modal-dismiss" id="btn_guardar" nom="btn_guardar" onclick="guardarLista('.$id.')"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>';
+                                  }
+                                  ?>
+                                  <a class="btn btn-success portfolio-modal-dismiss" onclick="ubicar(1)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                  <a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a>
                                 </div>
                               </div>
                             </div>

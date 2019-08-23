@@ -14,7 +14,7 @@
 
 		  foreach($lista as $fila){
 
-				  $re = $fun->busca_lista_prod($fila[0],$fila[1]);
+				  $re = $fun->busca_lista_prod($fila[0],$fila[1],1);
 		          foreach($re as $row){
 
 		                array_push($prod,$row);

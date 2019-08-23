@@ -4,6 +4,90 @@ require_once dirname( __DIR__ ) .'/recursos/db/db.php';
 class Funciones 
 {
 
+    /*///////////////////////////////////////
+    listas guardadas
+    //////////////////////////////////////*/
+        public function cargar_list_usu($id){
+
+            try{
+                
+                
+                $pdo = AccesoDB::getCon();
+
+                    $sql = "select a.id_lista, a.nom_lista, a.fec_cre_lista, sum(cant_prod) cant
+                        from lista_compra a, det_lista b 
+                        where a.id_lista = b.lista_det
+                        and  a.usu_cre_lista = :id
+                        group by a.id_lista, a.nom_lista, a.fec_cre_lista";
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                $response = $stmt->fetchAll();
+                return $response;
+
+            } catch (Exception $e) {
+                echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); </script>";
+            }
+        }
+
+
+
+
+
+
+    /*////////////////////////////////////////////
+    ////////////// GENERAR PASS //////////////////
+    ////////////////////////////////////////////*/ 
+    public function generaPass(){
+        //Se define una cadena de caractares. Te recomiendo que uses esta.
+        $cadena = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+        //Obtenemos la longitud de la cadena de caracteres
+        $longitudCadena=strlen($cadena);
+         
+        //Se define la variable que va a contener la contraseña
+        $pass = "";
+        //Se define la longitud de la contraseña, en mi caso 10, pero puedes poner la longitud que quieras
+        $longitudPass=6;
+         
+        //Creamos la contraseña
+        for($i=1 ; $i<=$longitudPass ; $i++){
+            //Definimos numero aleatorio entre 0 y la longitud de la cadena de caracteres-1
+            $pos=rand(0,$longitudCadena-1);
+         
+            //Vamos formando la contraseña en cada iteraccion del bucle, añadiendo a la cadena $pass la letra correspondiente a la posicion $pos en la cadena de caracteres definida.
+            $pass .= substr($cadena,$pos,1);
+        }
+        return $pass;
+    }
+
+
+    /*////////////////////////////////////////////
+    ////////////// VALIDAR MAIL  //////////////////
+    ////////////////////////////////////////////*/ 
+    public function validar_mail($mail,$opc){
+        try {
+            
+            $pdo = AccesoDB::getCon();
+            if($opc == 1){
+                $sql = "SELECT mail_usu FROM usuario where mail_usu = :mail";
+             }// else if($opc == 2){
+            //    $sql = "SELECT rut_emp FROM empresa where rut_emp = :rut";
+            // } 
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(":mail", $mail, PDO::PARAM_STR);
+            $stmt->execute();
+            $response = $stmt->fetchAll();
+            return $response;
+            
+        } catch (Exception $e) {
+            echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+        }
+    }
+
 
 
     /*///////////////////////////////////////
@@ -69,15 +153,15 @@ class Funciones
      /*///////////////////////////////////////
     Buscar Lista de productos
     //////////////////////////////////////*/
-        public function busca_lista_prod($id, $cant){
+        public function busca_lista_prod($id, $cant,$ori){
 
             try{
                 
                 
                 $pdo = AccesoDB::getCon();
 
-               
 
+                if ($ori == 1) {
                     $sql = "select a.id_prod, b.nom_tienda, a.nom_prod, :cant cant, (:cant * a.precio_uni_prod) precio
                             from producto a inner join tienda b 
                             on a.tienda_prod = b.id_tienda
@@ -87,12 +171,32 @@ class Funciones
                                 
                             
 
-                $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-                $stmt->bindParam(":cant", $cant, PDO::PARAM_INT);
-                $stmt->execute();
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                    $stmt->bindParam(":cant", $cant, PDO::PARAM_INT);
 
-                $response = $stmt->fetchAll();
+                }else if ($ori == 2) {
+                    $sql = "select a.id_prod, b.nom_tienda, a.nom_prod, cant_prod cant, (cant_prod * a.precio_uni_prod) precio
+                            from producto a inner join tienda b 
+                            on a.tienda_prod = b.id_tienda,
+                            lista_compra c, det_lista d
+                            where 
+                            c.id_lista = d.lista_det
+                            and d.id_prod_det = a.id_prod
+                            and c.id_lista = :id";
+
+                
+    
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+                }
+
+               
+                    $stmt->execute();
+
+                    $response = $stmt->fetchAll();
+                    
                 return $response;
 
             } catch (Exception $e) {
@@ -520,6 +624,57 @@ where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
                                         echo"1";
                                     }
                                 }
+/*///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////
+///////////////////////////////////////*/
+
+
+
+
+        /*///////////////////////////////////////
+            enviar mail nuevo usuario
+        //////////////////////////////////////*/
+        public function mail_crear_usu($password,$nombre,$mail) {
+            try{
+                $to = $mail;
+                        $subject = "Bienvenido a Mapa de los precios bajos";
+                        $message = "
+                        <html>
+                        <head>
+                        <title>Creación de Usuario - Mapa de los precios bajos</title>
+                        </head>
+                        <body>
+                        <h2>Creación de Usuario</h2>
+                        Estimado ".$nombre." se ha creado tu usuario para Mapa de los precios bajos.
+                        <br>
+                        Tus credenciales de ingreso son:
+                        <br>
+                        Mail: <b>".$mail."</b>
+                        <br>
+                        Contraseña: <b>".$password."</b>
+                        <br><br>
+                        Se despide Atte.
+                        <br><br>
+                        <h3>Mapa de los precios bajos</h3>
+                        <br><br>
+                        Este mensaje es enviado automaticamente, favor no responder.
+                        </body>
+                        </html>
+                        ";
+                        // Always set content-type when sending HTML email
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        // More headers
+                        $headers .= 'From: <Mapa de los precios bajos>' . "\r\n";
+                        $headers .= 'Cc: pvicencio@andescode.cl' . "\r\n";
+                        mail($to,$subject,$message,$headers);
+        } catch (Exception $e) {
+                //throw $e;
+                 echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+        }
+        }
 
 
     }

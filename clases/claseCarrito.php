@@ -1,4 +1,5 @@
 <?php
+require_once dirname( __DIR__ ) .'/recursos/db/db.php';
 
 Class Carrito{
 	public $miLista=array();
@@ -13,6 +14,92 @@ Class Carrito{
 		
 		
 	}
+
+
+
+
+	    /*///////////////////////////////////////
+        Guardar Lista
+        //////////////////////////////////////*/
+        public function guardar_lista($TableData, $nom, $fec_cre, $id_usu, $vig) {
+
+            try{
+
+                
+                $pdo = AccesoDB::getCon();
+
+
+
+
+                $sql_lista = "INSERT INTO `lista_compra`
+                                (`nom_lista`,`fec_cre_lista`,`usu_cre_lista`,`vig_lista`)
+                                VALUES(:nom,:fec,:usu,:vig)";
+
+
+
+                $stmt = $pdo->prepare($sql_lista);
+                        $stmt->bindParam("nom", $nom, PDO::PARAM_STR);
+                        $stmt->bindParam("fec", $fec_cre, PDO::PARAM_STR);
+                        $stmt->bindParam("usu", $id_usu, PDO::PARAM_INT);
+                        $stmt->bindParam("vig", $vig, PDO::PARAM_INT);
+                $stmt->execute();
+
+
+
+			if ($stmt->rowCount() > 0) {
+
+				$sql_id_lista = "select id_lista from lista_compra order by 1 desc limit 1";
+
+                $stmt = $pdo->prepare($sql_id_lista);
+                $stmt->bindParam(":correo", $correo, PDO::PARAM_STR);
+                $stmt->execute();
+
+
+                $lista = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+                foreach ($TableData as $row) {
+                			  $id_lista = $lista["id_lista"];
+                              $prod = $row['prod'];
+                              $cant = $row['cant'];
+                              $vig  = 1;
+                              
+                              
+                              
+
+                              
+                            $sql_det_lista = "INSERT INTO `det_lista`
+                                (`id_prod_det`,`vig_det`,`lista_det`,`cant_prod`)
+                                VALUES(:prod, :vig, :lista, :cant)";
+
+
+
+			                $stmt = $pdo->prepare($sql_det_lista);
+			                        $stmt->bindParam("prod", $prod, PDO::PARAM_INT);
+			                        $stmt->bindParam("vig", $vig, PDO::PARAM_INT);
+			                        $stmt->bindParam("lista", $id_lista, PDO::PARAM_INT);
+			                        $stmt->bindParam("cant", $cant, PDO::PARAM_INT);
+			                $stmt->execute();
+
+
+
+
+                              
+                          }
+
+             
+    		}
+        
+
+            } catch (Exception $e) {
+                 echo "-1";
+                 //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." ');</script>"; 
+            }
+        }
+
+
+
 
  
 

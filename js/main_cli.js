@@ -9,11 +9,15 @@
               var lista = [];
           }
 
-function ubicar(){
+
+  function ubicar($ori){
         $("#lista_prox").empty();
-        $.ajax({
+
+
+      if ($ori == 1) {
+            $.ajax({
               type: "POST",
-              url: 'vista/vistaUbicar.php',
+              url: '../vista/vistaUbicar.php',
               data:{"lista":lista},
               dataType:'json',
               success: function (result) { 
@@ -35,7 +39,7 @@ function ubicar(){
 
               
               //document.getElementById("container").style.display = "none";
-              $("#formbuscar").css("visibility", "hidden");
+              $("#mail").css("visibility", "hidden");
               $("#map").css("display", "block");
 
               $("#volver").css("display", "inline");
@@ -51,11 +55,72 @@ function ubicar(){
               }
         });
 
+      }else if ($ori == 2) {
+
+        var TableData = new Array();
+    
+              $('#tabla_prod tr').each(function(row, tr){
+                TableData[row]={
+                  "prod" : $(tr).find('td:eq(0)').text()
+                }
+
+
+            }); 
+            TableData.shift();  // first row will be empty - so remove
+            TableData = JSON.stringify(TableData);
+
+            $('#tbConvertToJSON').val('JSON array: \n\n' + TableData.replace(/},/g, "},\n"));
+
+
+
+          $.ajax({
+              type: "POST",
+              url: '../vista/vistaUbicarGuardada.php',
+              data:{"data" : TableData},
+              dataType:'json',
+              success: function (result) { 
+                  //var myData = result.replace("[", "");
+                  //var myData = myData.replace("]", "");
+                  //console.log(result);
+
+                    data(result);
+
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(initialize, error, {
+                        maximumAge: 60000,
+                        timeout: 4000
+                        });
+                    } else {
+                        error('Actualiza el navegador web para usar el API de localización');
+                    }
+
+              
+
+                $("#micuenta").css("visibility", "hidden");
+                $("#map").css("display", "block");
+
+                $("#volver").css("display", "inline");
+                $("#modalProd").hide();
+                $("#modalProd").css("display", "none");
+
+                
+        },
+              error: function(){
+                    swal("Agrega productos a tu lista", {
+                        icon: "warning",
+                      });     
+              }
+        });
+      }
+
+
+
+
 
 }
 
 
-
+//eliminar producto de la lista
 function eliminar(id,prod){
     swal({
         title: "¿Estas Seguro?",
@@ -89,7 +154,7 @@ function eliminar(id,prod){
 }
 
 
-
+//modal lista
   function modalListaProd() {
 
     $("#tbody_modalprod").empty();
@@ -102,7 +167,8 @@ function eliminar(id,prod){
       swal("Agrega productos a tu lista", {
                         icon: "warning",
                       }); 
-      //$("#modalProd").hide();
+
+      $("#btn_guardar").css("display","none");
       //$.magnificPopup.close()
 
 
@@ -122,7 +188,8 @@ function eliminar(id,prod){
                     //console.log (filas);
                  
                     for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
-                      var nuevafila= '<tr><td>' +
+                      var nuevafila= '<tr><td class="display:none">' +
+                      result[i].id_prod + "</td><td>" +
                       result[i].nom_tienda + "</td><td>" +
                       result[i].nom_prod + "</td><td>" +
                       result[i].cant + "</td><td>" +
@@ -155,7 +222,7 @@ function eliminar(id,prod){
 
 
 
-    
+//volver a busqueda
     function volver(){
             $("#formbuscar").css("visibility", "visible");
             $("#map").css("display", "none");
@@ -165,6 +232,7 @@ function eliminar(id,prod){
     }
 
 
+//agregar producto a la lista
     function agregar(id,prod) {
               swal({
               text: 'Ingresa la cantidad',
@@ -209,10 +277,8 @@ function eliminar(id,prod){
                 lista.forEach(function(producto) {
                   
                   if(producto[0] == existe){
-                    console.log("entra");
                     console.log(producto[1]);
                          producto[1] = parseInt(producto[1]) + parseInt(cant);
-                    console.log(producto[1]);
                     swal("Producto Sumado", prod + " "+producto[1]+" en total", "success");
                        }
                   
@@ -234,7 +300,7 @@ function eliminar(id,prod){
 
 
 
-
+//menu mobile
     function isMobile() {
 
           try{ 
@@ -254,8 +320,11 @@ function eliminar(id,prod){
              }).ajaxStop(function() {
           $("#loading").hide();
           $("#formbuscar").show();
-          });  
+          }); 
 
+
+
+//Busqueda
   $(document).ready(function() {
           $("#formbuscar").submit(function() {
           $("#lista_prox").empty();    
@@ -300,45 +369,77 @@ function eliminar(id,prod){
 
 
 
+//guardar lista
+function guardarLista(usu)
+        {
 
-     function modal(id) {
-    
-    document.getElementById("portafolio_titulo").innerHTML = "";
-    document.getElementById("portafolio").innerHTML = "";
-     $.ajax({
-      url: 'controles/controlPortafolio.php',
-      type: 'POST',
-      data: {"id":id},
-      success:function(result){
-         
-              document.getElementById("portafolio").innerHTML = result;
-               switch(id){
-                          case 1:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria1";
-                          break;
-                          case 2:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria2";
-                          break;
-                          case 3:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria3";
-                          break;
-                          case 4:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria4";
-                          break;
-                          case 5:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria5";
-                          break;
-                          case 6:
-                            document.getElementById("portafolio_titulo").innerHTML = "Categoria6";
-                          break;
-                          window.scroll(0, 0);
-
-
-               }
-                
+            swal({
+              text: 'Ingresa el nombre de la lista',
+              content: "input",
+              button: {
+                text: "Guardar Lista",
+                closeModal: false,
               },
-              error: function(){
-                      alert('Verifique los datos')      
+            })
+            .then(nomLista => {
+              if (!nomLista) throw null;
+
+                          var TableData = new Array();
+    
+                          $('#tabla_prod tr').each(function(row, tr){
+                TableData[row]={
+                  "prod" : $(tr).find('td:eq(0)').text()
+                    ,"cant" : $(tr).find('td:eq(3)').text()
+                }
+
+
+            }); 
+            TableData.shift();  // first row will be empty - so remove
+            TableData = JSON.stringify(TableData);
+
+            $('#tbConvertToJSON').val('JSON array: \n\n' + TableData.replace(/},/g, "},\n"));
+            $.ajax({
+                type: "POST",
+                url: "controles/controlGuardarLista.php",
+                data:   { "data" : TableData, "usu":usu, "nomLista":nomLista},
+                cache: false,
+                success: function(result){
+           var msg = result.trim();
+
+               switch(msg) {
+            case '-1':
+                swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+                break;
+            default:
+                swal("Lista Guardada!", msg, "success");
               }
-  })
-}
+      },
+      error: function(){
+              swal("Error", "favor verifique sus datos e intente nuevamente o comuniquese con su Administrador de Sistema", "warning");      
+              
+      }
+
+            });
+
+              
+             
+            })
+            .catch(err => {
+              if (err) {
+                swal("Oh no!", "La lista no se a guardado "+err, "error");
+              } else {
+                swal.stopLoading();
+                swal.close();
+              }
+            });
+
+
+
+
+
+
+        
+
+            
+        }
+
