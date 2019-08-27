@@ -30,7 +30,7 @@
                     //console.log (filas);
                  
                     for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
-                      var nuevafila= '<tr><td style="display:none">' +
+                      var nuevafila= '<tr><td style="display:none;">' +
                       result[i].id_prod + "</td><td>" +
                       result[i].nom_tienda + "</td><td>" +
                       result[i].nom_prod + "</td><td>" +

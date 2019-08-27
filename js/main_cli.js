@@ -147,6 +147,7 @@ function eliminar(id,prod){
           swal("Producto eliminado de tu lista", {
             icon: "success",
           });
+          $("#prod_carro").text(lista.length);
           modalListaProd()
         } 
       });
@@ -188,7 +189,7 @@ function eliminar(id,prod){
                     //console.log (filas);
                  
                     for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
-                      var nuevafila= '<tr><td class="display:none">' +
+                      var nuevafila= '<tr><td style="display:none;">' +
                       result[i].id_prod + "</td><td>" +
                       result[i].nom_tienda + "</td><td>" +
                       result[i].nom_prod + "</td><td>" +

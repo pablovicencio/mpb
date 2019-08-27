@@ -562,7 +562,7 @@ where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
                                 $sql = "select comuna_id, comuna_nombre from comuna";
                             
                             }else if ($vig == 1) {
-                                $sql = "select comuna_id, comuna_nombre from comuna";
+                                $sql = "select comuna_id, comuna_nombre from comuna where comuna_id = 5701";
                             }
         
                        
