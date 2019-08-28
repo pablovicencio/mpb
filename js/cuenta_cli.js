@@ -181,9 +181,11 @@ $(document).on("click", "#btn_upd", function () {
               document.createEvent("TouchEvent"); 
               $("#menuMob").css("display", "block");
               $("#menuMobFoo").css("display", "block");
+              $("#prod_carro").text(lista.length);
           }
           catch(e){ 
               $("#menuDesk").css("display", "block");
+              $("#prod_carro").text(lista.length);
           }
       }
 

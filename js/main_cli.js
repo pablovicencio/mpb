@@ -308,20 +308,22 @@ function eliminar(id,prod){
               document.createEvent("TouchEvent"); 
               $("#menuMob").css("display", "block");
               $("#menuMobFoo").css("display", "block");
+              $("#prod_carro").text(lista.length);
           }
           catch(e){ 
               $("#menuDesk").css("display", "block");
+              $("#prod_carro").text(lista.length);
           }
       }
 
 
-        $(document).ajaxStart(function() {
+$(document).ajaxStart(function() {
           $("#formbuscar").hide();
           $("#loading").show();
              }).ajaxStop(function() {
           $("#loading").hide();
           $("#formbuscar").show();
-          }); 
+    }); 
 
 
 
