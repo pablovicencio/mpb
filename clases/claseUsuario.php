@@ -138,7 +138,7 @@ class UsuarioDAO
 
                 $sql_mod_usu = "UPDATE `usuario`
                                     SET
-                                    `nom_usu` = :nombre,
+                                    `nom_usu` = :nombre
                                     WHERE `id_usu` = :id ";
 
 

@@ -42,8 +42,8 @@ if( isset($_SESSION['id']) ){
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDLYOM6tQISHF4gQOpUNGhTk98Ob-2-OBg"></script>
     <script src="js/map.js"></script>
-    <script src="js/main_cli.js"></script>
     <script type="application/javascript" src="js/cookie.js"></script>
+    <script src="js/main_cli.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 

@@ -14,7 +14,7 @@ if(isset($_SESSION['id'])){
  	require_once '../clases/claseUsuario.php';
 
 	try{
-			$nom = $_SESSION['nom'];
+			$nom = $_POST['nom'];
 
 			$dao = new UsuarioDAO($us,$nom,'','','','');
  		

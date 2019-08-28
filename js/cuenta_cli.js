@@ -10,6 +10,30 @@
           }
 
 
+
+//////////funcion logout
+$(document).ready(function(){
+  $("#btn-logout").click(function() {
+     swal({
+  title: "Cerrar Sesión",
+  text: "¿Deseas finalizar sesión?",
+  icon: "warning",
+  buttons: ["Cancelar", "Aceptar"],
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+    location.href ="../controles/controlLogout.php";
+  } 
+});
+    
+
+});
+});
+
+
+
+
 //funcion modal listas guardadas
   function lista_guardada(id) {
 
@@ -82,7 +106,8 @@ $("#nom_usu").keyup(function() {
 });
 
 //upd nom
-$(document).on("click", "#btn_upd", function () {
+$(document).ready(function(){
+  $("#btn-upd").click(function() {
  
      var nom = $("#nom_usu").val();
 		  
@@ -109,6 +134,7 @@ $(document).on("click", "#btn_upd", function () {
     });
     return false;
 
+  });
 });
 
 
