@@ -162,6 +162,7 @@ nombre: b[0].Nombre,
 precio: b[0].precio,
 tienda: b[0].tienda,
 img_prod: b[0].img_prod,
+precio_uni: b[0].precio_uni,
 id: b[0].id
 };
 ++i;
@@ -182,6 +183,7 @@ nombre: b.nombre,
 precio: b.precio,
 tienda: b.tienda,
 img_prod: b.img_prod,
+precio_uni: b.precio_uni,
 id: b.id
 });
 // marker['infowindow'] = new google.maps.InfoWindow({

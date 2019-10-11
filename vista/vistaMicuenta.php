@@ -75,7 +75,7 @@ if( isset($_SESSION['id']) ){
 <div id="menuDesk" name="menuDesk" style="display: none;">
   <nav class="navbar navbar-expand-sm bg-secondary fixed-top text-uppercase" id="mainNav">
     <a class="navbar-brand js-scroll-trigger" href="../index.php" id="link-home" name="link-home">
-    <img src="../img/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+    <img src="../img/logo.jpg" width="60" height="60" class="d-inline-block align-top" alt="">
     Mapa de los precios bajos
   </a>
           <ul class="navbar-nav ml-auto" >
@@ -214,10 +214,10 @@ if( isset($_SESSION['id']) ){
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-con-mob" name="link-con-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-con" name="link-con">Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#conocenos" id="link-con" name="link-con">Nosotros</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#conocenos" id="link-con" name="link-con">Nosotros</a>
             </li>
             <li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#contacto" id="link-anu" name="link-anu">Anunciate!</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#contacto" id="link-anu" name="link-anu">Anunciate!</a>
             </li>
 
                 
@@ -271,7 +271,7 @@ if( isset($_SESSION['id']) ){
                                             <input type="password" class="form-control" id="newpwd2" placeholder="Nueva contraseña" maxlength="6" name="newpwd2">
                                             </div>
                                           </div>
-                                            <center><input type="submit" class="btn btn-info" id="btnAc" name="btnAc" value="Actualizar">
+                                            <center><input type="submit" class="btn btn-info" id="btnActPwd" name="btnActPwd" value="Actualizar">
                                             <a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a></center> 
                                             <br>
                                           </form>
@@ -310,6 +310,11 @@ if( isset($_SESSION['id']) ){
                                         </tbody>
                                     </table>
                                   </div>
+                                  <?php
+                                  if ($id > 0) {
+                                    echo '<a class="btn btn-warning portfolio-modal-dismiss" id="btn_guardar" nom="btn_guardar" onclick="guardarLista('.$id.')"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>';
+                                  }
+                                  ?>
                                   <a class="btn btn-success portfolio-modal-dismiss" onclick="ubicar(2)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
                                   <a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a>
                                 </div>

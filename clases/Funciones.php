@@ -4,6 +4,40 @@ require_once dirname( __DIR__ ) .'/recursos/db/db.php';
 class Funciones 
 {
 
+
+    /*///////////////////////////////////////
+    Validar contraseña 
+    //////////////////////////////////////*/
+        public function validar_pwd($id,$ident){
+            try{
+                
+                
+                $pdo = AccesoDB::getCon();
+                            if ($ident == 0) {
+                                $sql = "select pass_ope pass
+                                        from operador where id_ope = :id";
+                            
+                            }else if ($ident == 1) {
+                                $sql = "select pass_usu pass
+                                        from usuario where id_usu = :id";
+                            }
+        
+                       
+                                
+                            
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+                $response = $stmt->fetchAll();
+                return $response;
+            } catch (Exception $e) {
+            echo"-1";
+            //echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>";
+            }
+        }
+
+
+
     /*///////////////////////////////////////
     listas guardadas
     //////////////////////////////////////*/
@@ -505,7 +539,7 @@ group by a.id_anuncio, a.nom_anuncio,a.cat_anuncio ) a";
 
 
                 }elseif ($com == 0) {
-                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda
+                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda,a.precio_envase_prod
 from producto a inner join tienda b on a.tienda_prod = b.id_tienda
 where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
                 
@@ -517,7 +551,7 @@ where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
 
                
 
-                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda
+                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda,a.precio_envase_prod
                         from producto a inner join tienda b on a.tienda_prod = b.id_tienda
                         where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like :prod and a.id_prod <> :id and b.comuna_tienda = :com";
 }
@@ -667,7 +701,7 @@ where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
                         $headers = "MIME-Version: 1.0" . "\r\n";
                         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                         // More headers
-                        $headers .= 'From: <Mapa de los precios bajos>' . "\r\n";
+                        $headers .= 'From: <hola@mapadelospreciosbajos.cl>' . "\r\n";
                         $headers .= 'Cc: pvicencio@andescode.cl' . "\r\n";
                         mail($to,$subject,$message,$headers);
         } catch (Exception $e) {
@@ -677,4 +711,47 @@ where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
         }
 
 
+    
+
+
+
+        /*///////////////////////////////////////
+            enviar mail reset password
+        //////////////////////////////////////*/
+        public function correo_upd_pass($mail,$contraseña) {
+            try{
+                $to = $mail;
+                        $subject = "Cambio de Contraseña Mapa de los precios bajos";
+                        $message = "
+                        <html>
+                        <head>
+                        <title>Cambio de Contraseña</title>
+                        </head>
+                        <body>
+                        <h2>Actualización de contraseña</h2>
+                        Estimad@ se ha actualizado su contraseña para Mapa de los precios bajos.
+                        <br>
+                        Tu Nueva Contraseña es:
+                        <br><br>
+                        Contraseña: <b>".$contraseña."</b>
+                        <br><br>
+                        Se despide Atte.
+                        <br><br>
+                        <h3>Mapa de los precios bajos</h3>
+                        <br><br>
+                        Este mensaje es enviado automaticamente, favor no responder.
+                        </body>
+                        </html>
+                        ";
+                        // Always set content-type when sending HTML email
+                        $headers = "MIME-Version: 1.0" . "\r\n";
+                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        // More headers
+                        $headers .= 'From: <hola@mapadelospreciosbajos.cl>' . "\r\n";
+                        $headers .= 'Cc: pvicencio@andescode.cl' . "\r\n";
+                        mail($to,$subject,$message,$headers);
+        } catch (Exception $e) {
+                throw $e;
+        }
+        }
     }

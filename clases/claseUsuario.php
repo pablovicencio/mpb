@@ -165,7 +165,7 @@ class UsuarioDAO
                 
                 $pdo = AccesoDB::getCon();
 
-                $sql_pwd = "update usuarios
+                $sql_pwd = "update usuario
                 set pass_usu = :pwd
                 where id_usu = :id";
 
@@ -179,7 +179,8 @@ class UsuarioDAO
         
 
         } catch (Exception $e) {
-                echo"<script type=\"text/javascript\">alert('Error, comuniquese con el administrador".  $e->getMessage()." '); window.location='../../index.html';</script>"; 
+                echo "-1";
+                //echo"Error, comuniquese con el administrador".  $e->getMessage()."";
         }
     }
 

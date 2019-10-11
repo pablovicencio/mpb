@@ -1,13 +1,56 @@
 
       try{ 
+           
               var lista_compra = Cookies.get('lista_compra');
-              var lista = [lista_compra];
+              var lista = JSON.parse(lista_compra);
+              if (typeof lista_compra === 'undefined') {
+              var lista = []; 
+              }
 
           }
       catch(e){ 
-              //console.log(e);
+              console.log(e);
               var lista = [];
           }
+
+
+
+//upd pass
+$(document).ready(function(){
+  $("#btnActPwd").click(function() {
+ 
+      
+     $.ajax({
+      type: "POST",
+      url: '../controles/controlActPwd.php',
+      data:$("#formActPwd").serialize(),
+      success: function (result) { 
+        var msg = result.trim();
+
+        switch(msg) {
+                case '1':
+                    swal("Error de Datos", "Los datos ingresados no son validos, favor reintente", "warning");
+                    break;
+                case '2':
+                    swal("Error de Nueva Contraseñas", "Las nuevas contraseñas no son iguales, favor reintente", "warning");
+                    break;
+                case '-1':
+                    swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+                    break;
+                default:
+                    swal("Contraseña Modificada", msg, "success");
+                    setInterval('location.reload()',10000);
+
+            }
+      },
+      error: function(){
+              alert('Verifique los datos')      
+      }
+    });
+    return false;
+
+  });
+});
 
 
 
@@ -170,7 +213,8 @@ $(document).ready(function(){
                     //console.log (filas);
                  
                     for (  i = 0 ; i < filas; i++){ //cuenta la cantidad de registros
-                      var nuevafila= '<tr><td>' +
+                      var nuevafila= '<tr><td style="display:none;">' +
+                      result[i].id_prod + "</td><td>" +
                       result[i].nom_tienda + "</td><td>" +
                       result[i].nom_prod + "</td><td>" +
                       result[i].cant + "</td><td>" +
@@ -199,6 +243,117 @@ $(document).ready(function(){
     
 
   }
+
+
+  //eliminar producto de la lista
+function eliminar(id,prod){
+    swal({
+        title: "¿Estas Seguro?",
+        text: "Eliminaras "+prod+" de tus lista de compras",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          fLen = lista.length;
+
+
+              for (i = 0; i < fLen; i++) {
+                  console.log(lista);
+                   
+                     if (id == lista[i][0]) {
+
+                      lista.splice(i, 1);
+                      fLen = lista.length;
+                     }
+              }
+
+          swal("Producto eliminado de tu lista", {
+            icon: "success",
+          });
+          $("#prod_carro").text(lista.length);
+          modalListaProd()
+        } 
+      });
+
+}
+
+
+//guardar lista
+function guardarLista(usu)
+        {
+
+            swal({
+              text: 'Ingresa el nombre de la lista',
+              content: "input",
+              button: {
+                text: "Guardar Lista",
+                closeModal: false,
+              },
+            })
+            .then(nomLista => {
+              if (!nomLista) throw null;
+
+                          var TableData = new Array();
+    
+                          $('#tabla_prod tr').each(function(row, tr){
+                TableData[row]={
+                  "prod" : $(tr).find('td:eq(0)').text()
+                    ,"cant" : $(tr).find('td:eq(3)').text()
+                }
+
+
+            }); 
+            TableData.shift();  // first row will be empty - so remove
+            TableData = JSON.stringify(TableData);
+
+            $('#tbConvertToJSON').val('JSON array: \n\n' + TableData.replace(/},/g, "},\n"));
+            $.ajax({
+                type: "POST",
+                url: "../controles/controlGuardarLista.php",
+                data:   { "data" : TableData, "usu":usu, "nomLista":nomLista},
+                cache: false,
+                success: function(result){
+           var msg = result.trim();
+
+               switch(msg) {
+            case '-1':
+                swal("Error Base de Datos", "Error de base de datos, comuniquese con el administrador", "warning");
+                break;
+            default:
+                swal("Lista Guardada!", msg, "success");
+                setInterval('location.reload()',3000);
+              }
+      },
+      error: function(){
+              swal("Error", "favor verifique sus datos e intente nuevamente o comuniquese con su Administrador de Sistema", "warning");      
+              
+      }
+
+            });
+
+              
+             
+            })
+            .catch(err => {
+              if (err) {
+                swal("Oh no!", "La lista no se a guardado "+err, "error");
+              } else {
+                swal.stopLoading();
+                swal.close();
+              }
+            });
+
+
+
+
+
+
+        
+
+            
+        }
 
 
   function isMobile() {

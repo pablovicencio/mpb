@@ -30,9 +30,8 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDLYOM6tQISHF4gQOpUNGhTk98Ob-2-OBg"></script>
     <script src="../js/map.js"></script>
-    <script src="../js/login_cli.js"></script>
     <script type="application/javascript" src="../js/cookie.js"></script>
-    <script src="../js/main_cli.js"></script>
+    <script src="../js/login_cli.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -58,8 +57,8 @@
 
 <div id="menuDesk" name="menuDesk" style="display: none;">
   <nav class="navbar navbar-expand-sm bg-secondary fixed-top text-uppercase" id="mainNav">
-    <a class="navbar-brand js-scroll-trigger" href="index.php" id="link-home" name="link-home">
-    <img src="../img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    <a class="navbar-brand js-scroll-trigger" href="../index.php" id="link-home" name="link-home">
+    <img src="../img/logo.jpg" width="60" height="60" class="d-inline-block align-top" alt="">
     Mapa de los precios bajos
   </a>
           <ul class="navbar-nav ml-auto" >
@@ -67,13 +66,13 @@
                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php" id="link-home-mob" name="link-home-mob"><i class="fa fa-home" aria-hidden="true"></i></a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#categorias" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-com" name="link-com"> Mi Cuenta</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vistaMicuenta.php" id="link-com" name="link-com"> Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#conocenos" id="link-con" name="link-con">Nosotros</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#conocenos" id="link-con" name="link-con">Nosotros</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#contacto" id="link-anu" name="link-anu">Contactanos</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../index.php#contacto" id="link-anu" name="link-anu">Contactanos</a>
             </li>
 
 
@@ -180,7 +179,7 @@
 
     
 
-    <!-- listado Modal 1 -->
+    <!-- listado Modal crear usu -->
                   <div class="portfolio-modal mfp-hide" id="modalCreUsu">
                           <div class="portfolio-modal-dialog bg-white">
                             <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
@@ -206,10 +205,46 @@
                                             <input type="text" class="form-control" id="mailusu" placeholder="Sera enviada la contraseña" maxlength="100" name="mailusu" required>
                                             </div>
                                           </div>
-                                            <center><input type="submit" class="btn btn-info" id="btnAc" name="btnAc" value="Crear"><a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">Volver</a></center> 
+                                            <center><input type="submit" class="btn btn-info" id="btnAc" name="btnAc" value="Crear"><a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a></center> 
                                             <br>
                                           </form>
                                       </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+   <!-- listado Modal prod -->
+                  <div class="portfolio-modal mfp-hide" id="modalProd">
+                          <div class="portfolio-modal-dialog bg-white">
+                            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
+                              <i class="fa fa-3x fa-times"></i>
+                            </a>
+                            <div class="container text-center">
+                              <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                  <h3 class="text-secondary text-uppercase mb-0">Lista de Compras</h3>
+                                  <div id="listado" name="listado">
+                                    <table class="table table-responsive table-sm table-striped " id="tabla_prod" name="tabla_prod">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">Tienda</th>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio Total</th>
+                                            <th scope="col"><i class="fa fa-trash" aria-hidden="true"></i></th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="tbody_modalprod">
+                                        </tbody>
+                                    </table>
+                                  </div>
+                                  <a class="btn btn-success portfolio-modal-dismiss" onclick="ubicar(2)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                  <a class="btn btn-danger portfolio-modal-dismiss" href="#">Volver</a>
                                 </div>
                               </div>
                             </div>

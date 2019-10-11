@@ -1,11 +1,15 @@
 
       try{ 
+           
               var lista_compra = Cookies.get('lista_compra');
-              var lista = [lista_compra];
+              var lista = JSON.parse(lista_compra);
+              if (typeof lista_compra === 'undefined') {
+              var lista = []; 
+              }
 
           }
       catch(e){ 
-              //console.log(e);
+              console.log(e);
               var lista = [];
           }
 
@@ -263,8 +267,6 @@ function eliminar(id,prod){
 
               if (existe < 0) {
                 lista.push([id, parseInt(cant)]);
-
-                
               
                 Cookies.set('lista_compra',lista, { expires: 90 });
 
@@ -278,14 +280,14 @@ function eliminar(id,prod){
                 lista.forEach(function(producto) {
                   
                   if(producto[0] == existe){
-                    console.log(producto[1]);
+                    //console.log(producto[1]);
                          producto[1] = parseInt(producto[1]) + parseInt(cant);
                     swal("Producto Sumado", prod + " "+producto[1]+" en total", "success");
                        }
                   
                 });
               }
-
+              //console.log(lista);
               $("#prod_carro").text(lista.length);
              
             })
@@ -359,7 +361,7 @@ $(document).ajaxStart(function() {
               $("#map").css("display", "block");
 
               $("#volver").css("display", "inline");
-              //window.scroll(0, 0);
+              window.scroll(0, 0);
                 
               },
               error: function(){

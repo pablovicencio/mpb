@@ -68,7 +68,7 @@ if( isset($_SESSION['id']) ){
 <div id="menuDesk" name="menuDesk" style="display: none;">
   <nav class="navbar navbar-expand-sm bg-secondary fixed-top text-uppercase" id="mainNav">
     <a class="navbar-brand js-scroll-trigger" href="index.php" id="link-home" name="link-home">
-    <img src="img/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+    <img src="img/logo.jpg" width="60" height="60" class="d-inline-block align-top" alt="">
     Mapa de los precios bajos
   </a>
           <ul class="navbar-nav ml-auto" >
