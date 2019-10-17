@@ -31,7 +31,40 @@
           }
       }
 
+//eliminar producto de la lista
+function eliminar(id,prod){
+    swal({
+        title: "¿Estas Seguro?",
+        text: "Eliminaras "+prod+" de tus lista de compras",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          fLen = lista.length;
 
+
+              for (i = 0; i < fLen; i++) {
+                  console.log(lista);
+                   
+                     if (id == lista[i][0]) {
+
+                      lista.splice(i, 1);
+                      fLen = lista.length;
+                      Cookies.set('lista_compra',lista, { expires: 90 });
+                     }
+              }
+
+          swal("Producto eliminado de tu lista", {
+            icon: "success",
+          });
+          $("#prod_carro").text(lista.length);
+          modalListaProd()
+        } 
+      });
+
+}
 
 
   function ubicar($ori){

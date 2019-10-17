@@ -163,7 +163,8 @@ precio: b[0].precio,
 tienda: b[0].tienda,
 img_prod: b[0].img_prod,
 precio_uni: b[0].precio_uni,
-id: b[0].id
+id: b[0].id,
+rank: b[0].rank
 };
 ++i;
 });
@@ -184,7 +185,8 @@ precio: b.precio,
 tienda: b.tienda,
 img_prod: b.img_prod,
 precio_uni: b.precio_uni,
-id: b.id
+id: b.id,
+rank: b.rank
 });
 // marker['infowindow'] = new google.maps.InfoWindow({
 // content: b.nombre,
@@ -200,9 +202,19 @@ id: b.id
     var infowindow = new google.maps.InfoWindow({
         content: ''
     });
-    //contenido de la infowindow
-    var content='<div id="content" style="width: auto; height: auto;">' + marker.nombre + '<hr/>Precio: $' +marker.precio+ '<br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
 
+    if (marker.rank == 1) {
+        //contenido de la infowindow
+    var content='<div id="content" style="width: auto; height: auto; background-color:#7DCEA0; border-radius: 10px;">' + marker.nombre + '<hr/>Precio Unitario: $' +marker.precio_uni+ '<br>Total: $' +marker.precio+ '<br><br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
+
+
+    }else{
+          //contenido de la infowindow
+    var content='<div id="content" style="width: auto; height: auto;">' + marker.nombre + '<hr/>Precio Unitario: $' +marker.precio_uni+ '<br>Total: $' +marker.precio+ '<br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
+
+    }
+
+    
         /*medoto para crear las infowindow independiente una de otra y 
      * desplegarlas todas a la vez*/
     google.maps.event.addListener(marker, 'click', function(marker, content, infowindow) {

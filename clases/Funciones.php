@@ -553,7 +553,7 @@ where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like";
 
                     $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda,a.precio_envase_prod
                         from producto a inner join tienda b on a.tienda_prod = b.id_tienda
-                        where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like :prod and a.id_prod <> :id and b.comuna_tienda = :com";
+                        where a.vig_prod = 1 and b.vig_tienda = 1 and a.nom_prod like :prod and a.id_prod <> :id and b.comuna_tienda = :com order by a.precio_envase_prod desc";
 }
                 
                                 

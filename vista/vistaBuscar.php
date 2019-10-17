@@ -61,11 +61,15 @@ $producto = stripcslashes ($_POST['producto']);
               
               //}
 
+          
+
           if (!empty($re)) {
                 $datos = array();
+              $i=count($re);
 
 
               foreach($re as $row){
+               
                 $fila=array( array("Nombre" => $row['nom_prod'],
                                                       "id" => $row['id_prod'],
                                                       "Position" => array(
@@ -75,9 +79,11 @@ $producto = stripcslashes ($_POST['producto']);
                                                       "precio" => $row['precio_uni_prod'],
                                                       "tienda" => $row['nom_tienda'],
                                                       "img_prod" => $row['img_prod'],
-                                                      "precio_uni" => $row['precio_envase_prod']
-                                                      ));
+                                                      "precio_uni" => $row['precio_envase_prod'],
+                                                      "rank" => $i
 
+                                                      ));
+                 $i--;
 
 
 

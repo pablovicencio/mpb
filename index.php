@@ -125,8 +125,8 @@ if( isset($_SESSION['id']) ){
     <!-- Header -->
     <header class="masthead bg-primary text-black text-center" id="mainCont">
       <div id="map" style=" display:none">
-              <div id="map-canvas"></div>
-                <div id="markers">
+              <div id="map-canvas" ></div>
+                <div id="markers" style=" display:none">
                   <h5>Proximidad</h5>
                     <ul id="lista_prox"></ul>
                 </div>

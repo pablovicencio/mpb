@@ -145,6 +145,7 @@ function eliminar(id,prod){
 
                       lista.splice(i, 1);
                       fLen = lista.length;
+                      Cookies.set('lista_compra',lista, { expires: 90 });
                      }
               }
 
