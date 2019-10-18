@@ -79,10 +79,10 @@ if( isset($_SESSION['id']) ){
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-com-mob" name="link-com-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-com" name="link-com"> Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con" name="link-con">Nosotros</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#conocenos" id="link-con" name="link-con">Nosotros</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu" name="link-anu">Contactanos</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#contacto" id="link-anu" name="link-anu">Contactanos</a>
             </li>
 
 
@@ -166,7 +166,7 @@ if( isset($_SESSION['id']) ){
               
             </div>
 
-            <h2 class="font-weight-light mb-0 bg-light border">Busca - Compara - Compra Inteligente</h2>
+            <h2 class="font-weight-light mb-0 bg-light border" id="slogan">Busca - Compara - Compra Inteligente</h2>
             </form>
             
             
@@ -176,7 +176,7 @@ if( isset($_SESSION['id']) ){
     
     </header>
       <center>
-        <br><button class="btn btn-primary btn-lg" style="display: none" id="volver" name="volver" onclick="volver()">Volver a buscar</button><br><br>
+        <button class="btn btn-primary btn-lg" style="display: none" id="volver" name="volver" onclick="volver()">Volver a buscar</button><br>
       </center>
 
 
@@ -323,7 +323,7 @@ if( isset($_SESSION['id']) ){
     </section>
 
     <!--         Footer  -->
-    <div class="footer2 text-center">
+    <div class="footer2 text-center" id="footer">
       <div class="container">
         <div class="row">
           
@@ -366,10 +366,10 @@ if( isset($_SESSION['id']) ){
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-con-mob" name="link-con-mob"><i class="fa fa-address-card" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="vista/vistaMicuenta.php" id="link-con" name="link-con">Mi Cuenta</a>
             </li>
             <li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#conocenos" id="link-con" name="link-con">Nosotros</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#conocenos" id="link-con-mob" name="link-con-mob"><i class="fa fa-users" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#conocenos" id="link-con" name="link-con">Nosotros</a>
             </li>
             <li class="nav-item mx-0 mx-0">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contacto" id="link-anu" name="link-anu">Anunciate!</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#contacto" id="link-anu-mob" name="link-anu-mob"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index.php#contacto" id="link-anu" name="link-anu">Anunciate!</a>
             </li>
           </ul>
 

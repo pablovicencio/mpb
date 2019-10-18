@@ -161,7 +161,7 @@ class Funciones
                 
                 $pdo = AccesoDB::getCon();
 
-                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda
+                    $sql = "select a.id_prod, a.nom_prod,b.nom_tienda,a.cat_prod,a.img_prod,a.precio_uni_prod,b.longitud_tienda,b.latitud_tienda,a.precio_envase_prod 
                         from producto a inner join tienda b on a.tienda_prod = b.id_tienda
                         where a.vig_prod = 1 and b.vig_tienda = 1 and a.id_prod = :id";
 
@@ -196,7 +196,8 @@ class Funciones
 
 
                 if ($ori == 1) {
-                    $sql = "select a.id_prod, b.nom_tienda, a.nom_prod, :cant cant, (:cant * a.precio_uni_prod) precio
+                    $sql = "select a.id_prod, b.nom_tienda, a.nom_prod, :cant cant,
+                     (:cant * a.precio_uni_prod) precio, 
                             from producto a inner join tienda b 
                             on a.tienda_prod = b.id_tienda
                             where a.id_prod = :id";

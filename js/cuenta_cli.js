@@ -9,7 +9,7 @@
 
           }
       catch(e){ 
-              console.log(e);
+              //console.log(e);
               var lista = [];
           }
 
@@ -260,7 +260,7 @@ function eliminar(id,prod){
 
 
               for (i = 0; i < fLen; i++) {
-                  console.log(lista);
+                  //console.log(lista);
                    
                      if (id == lista[i][0]) {
 
@@ -372,6 +372,8 @@ function guardarLista(usu)
 
 
   function ubicar($ori){
+     
+       
         $("#lista_prox").empty();
 
 
@@ -402,11 +404,15 @@ function guardarLista(usu)
               //document.getElementById("container").style.display = "none";
               $("#mail").css("visibility", "hidden");
               $("#map").css("display", "block");
-
               $("#volver").css("display", "inline");
               $("#modalProd").hide();
               $("#modalProd").css("display", "none");
-              //window.scroll(0, 0);
+
+               alto = screen.height;
+               $("#mainCont").css("height", alto); 
+
+              window.scroll(0, 0);
+
                 
         },
               error: function(){
@@ -463,6 +469,11 @@ function guardarLista(usu)
                $("#volver").css("display", "inline");
                $("#modalProd").hide();
                $("#modalProd").css("display", "none");
+
+               alto = screen.height;
+               $("#mainCont").css("height", alto); 
+              
+               window.scroll(0, 0);
 
                 
         },

@@ -27,7 +27,8 @@ $lista = $_POST['lista'];
                                                       ),
                                                       "precio" => $row['precio_uni_prod'],
                                                       "tienda" => $row['nom_tienda'],
-                                                      "img_prod" => $row['img_prod']
+                                                      "img_prod" => $row['img_prod'],
+                                                      "precio_uni" => $row['precio_envase_prod']
                                                       )));
                   
                             }

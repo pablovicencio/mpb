@@ -9,12 +9,15 @@
 
           }
       catch(e){ 
-              console.log(e);
+              //console.log(e);
               var lista = [];
           }
 
 
   function ubicar($ori){
+        if (screen.height < 600) {
+                  $("#mainCont").css("height", "450px"); 
+              }
         $("#lista_prox").empty();
 
 
@@ -139,7 +142,7 @@ function eliminar(id,prod){
 
 
               for (i = 0; i < fLen; i++) {
-                  console.log(lista);
+                  //console.log(lista);
                    
                      if (id == lista[i][0]) {
 
@@ -235,6 +238,9 @@ function eliminar(id,prod){
 
             $("#volver").css("display", "none");
             $("#producto").val("");
+            $("#conocenos").css("display", "block");
+            $("#contacto").css("display", "block");
+            $("#footer").css("display", "block");
     }
 
 
@@ -312,10 +318,13 @@ function eliminar(id,prod){
               $("#menuMob").css("display", "block");
               $("#menuMobFoo").css("display", "block");
               $("#prod_carro").text(lista.length);
-          }
-          catch(e){ 
+
+
+          }catch(e){ 
               $("#menuDesk").css("display", "block");
               $("#prod_carro").text(lista.length);
+
+
           }
       }
 
@@ -333,6 +342,10 @@ $(document).ajaxStart(function() {
 //Busqueda
   $(document).ready(function() {
           $("#formbuscar").submit(function() {
+            //console.log(screen.height);
+            if (screen.height < 600) {
+                  $("#mainCont").css("height", "450px"); 
+              }
           $("#lista_prox").empty();    
             $.ajax({
               type: "POST",
@@ -362,6 +375,9 @@ $(document).ajaxStart(function() {
               $("#map").css("display", "block");
 
               $("#volver").css("display", "inline");
+              $("#conocenos").css("display", "none");
+              $("#contacto").css("display", "none");
+              $("#footer").css("display", "none");
               window.scroll(0, 0);
                 
               },

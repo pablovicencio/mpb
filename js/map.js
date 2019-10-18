@@ -205,7 +205,7 @@ rank: b.rank
 
     if (marker.rank == 1) {
         //contenido de la infowindow
-    var content='<div id="content" style="width: auto; height: auto; background-color:#7DCEA0; border-radius: 10px;">' + marker.nombre + '<hr/>Precio Unitario: $' +marker.precio_uni+ '<br>Total: $' +marker.precio+ '<br><br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-success btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
+    var content='<div id="content" style="width: auto; height: auto; background-color:#7DCEA0; border-radius: 10px;">' + marker.nombre + '<hr/>Precio Unitario: $' +marker.precio_uni+ '<br>Total: $' +marker.precio+ '<br><br>Tienda: '+marker.tienda+'<br><a class="btn btn-outline-info btn-sm" onclick="agregar('+marker.id+',\''+marker.nombre+'\')"><i class="fa fa-cart-plus" aria-hidden="true" style="font-size:24px"></i></a></div>';                    
 
 
     }else{
